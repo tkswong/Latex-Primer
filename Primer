@@ -1,0 +1,665 @@
+\documentclass[12pt]{article}
+
+\usepackage{pifont}
+\usepackage{graphicx}
+\usepackage{amsmath, amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%\usepackage[normalem]{ulem}
+\usepackage{aliascnt}
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\usepackage{comment}
+\usepackage{verbatim}
+
+\usepackage[titles]{tocloft}
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+
+%\setlength{\cftbeforechapskip}{2ex}
+\setlength{\cftbeforesecskip}{0.1ex}
+\setcounter{tocdepth}{1}
+\pagestyle{fancyplain}
+ 
+\lhead{\LaTeX{} Primer}
+\chead{}
+\rhead{Thomas Wong}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\theoremstyle{definition}
+\newtheorem{cou}{counting}
+\newaliascnt{lem}{cou}
+\newaliascnt{df}{cou}
+\newaliascnt{thm}{cou}
+\newaliascnt{prop}{cou}
+\newaliascnt{cor}{cou}
+\newaliascnt{ex}{cou}
+
+\newtheorem{lem}[lem]{Lemma}
+\newtheorem{df}[df]{Definition}
+\newtheorem{prop}[prop]{Proposition}
+\newtheorem{thm}[thm]{Theorem}
+\newtheorem{cor}[cor]{Corollary}
+\newtheorem{ex}[ex]{Example}
+
+\aliascntresetthe{lem}
+\aliascntresetthe{df}
+\aliascntresetthe{prop}
+\aliascntresetthe{thm}
+\aliascntresetthe{cor}
+\aliascntresetthe{ex}
+
+\def\lemautorefname{Lemma}
+\def\dfautorefname{Definition}
+\def\propautorefname{Proposition}
+\def\thmautorefname{Theorem}
+\def\exautorefname{Example}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathcal{Q}}
+\newcommand{\mmid}{\mathrel{}\middle|\mathrel{} }
+
+\renewcommand*\contentsname{If you want $\ldots$}
+
+\begin{document}
+\noindent Last Updated: \today{}.
+\newline
+\newline
+\noindent This document is intended as a resource for students in MATH110-001 (and math courses in general) at UBC. I don't own \LaTeX{} or any of the packages or websites mentioned here. This is by no means an exhaustive document. Please contact your instructor for any \LaTeX{} related issues. However, please feel free to email me at twong[at]math[dot]ubc[dot]ca with any comments, suggestions, feedback or if you spot any typos in this primer. Enjoy :)
+
+\tableofcontents
+
+\section{Some Online \TeX{} Editors}
+There are many online \TeX{} editors available, some of them are:
+\begin{enumerate}
+\item \url{https://www.writeLatex.com/}
+\item \url{http://www.scribtex.com/}
+\item \url{http://tex.mendelu.cz/en/}
+\end{enumerate}
+It is possible to use some of the websites without registering, but you won't be able to save it online. Remember to make a copy of everything you do on your own computer.
+
+\section{A Quick Introduction}
+One of the biggest advantages of \LaTeX is that we (as the user) don't have to worry too much about the layout of the document. Latex will deal will most of the formatting issues. Latex does contain a relatively steep learning curve but I have found through my own experiences that the best way to learn is to begin with a template and then look up the bits I need to do the task I have to do.
+
+The document is not meant to be read from start to finish in a single sitting. When you encounter problems with Latex, simply jump to the relevant section and look up the syntax. I have tried to include plenty of sample codes, so feel free to copy and paste the relevant bits into Latex and edit as necessary.
+
+Before, we get into it, there are some symbols that are special to Latex. Most commands begin with a \emph{backslash} `$\backslash$', and if a particular command requires input, this will be accomplished using the \emph{curly brackets} $\{ \}$. Other symbols that will be of importance are \$, \% and \&.
+
+Some tips to do well with Latex:
+\begin{enumerate}
+\item Save often. Compile often.
+\item Proof read often.
+\item When stuck, check examples (here and on the web).
+\item Talk to other people about it.
+\end{enumerate}
+
+\section{The Structure of \LaTeX}
+
+I guess a good starting point for understanding \LaTeX{} is to understand what a document looks like. 
+\begin{ex}{\bf Sample Document} 
+
+The start of this primer might look something like:
+
+{\footnotesize
+\begin{verbatim}
+\documentclass[12pt]{article} %All documents start with this
+
+% This is called the preamble. It sets up the format of the document.
+% It includes author information, dates, formatting etc.
+% If we require any additional formatting etc, we can import `packages'.
+% This will give us more customability.
+
+% For exmaple: ams* packages gives us a range of symbols etc.
+\usepackage{amsmath, amsthm,amsfonts,amssymb}
+
+% fancyhdr is a package that deals with headers and footers.
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\pagestyle{fancyplain}
+
+% Header and Footer content
+\lhead{\today}
+\chead{\LaTeX{} Primer}
+\rhead{Thomas Wong}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+
+% Preamble ends here
+\begin{document}
+% This is where the content starts, after this line.
+
+This is the start of a \LaTeX primer....
+% Write all the content here, before this line.
+\end{document}
+\end{verbatim}
+}
+\end{ex}
+
+\subsection{Commenting}
+If we were to compile the above document, we notice that the lines starting with \% do not show up. This is known as commenting. It allows us to write comments in the document for our own reference without it showing up in the final product. We can accomplish this by using the \% symbol. Every line that begins with a \% in the code will be ignored by the compiler and not displayed in the final document.
+
+\section{Normal Text}
+Text works normally as we would expect. Simply type what you want and Latex will take care of the line breaks and spacing. With that said, to manually introduce a new line, we can do it as follows:
+
+\begin{ex}
+{\bf New lines:}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+What you type: & What you see:\\
+\hline
+\verb; Line break here.\\New line.; &Line break here. \\
+{}&{New line.}\\
+\hline
+\end{tabular}
+\end{center}
+\end{ex}
+We may also want to use {\bf Bold} or {\it Italics} or alter the font size. Note the use of curly brackets, these will be very useful in Latex.
+\begin{ex}
+{\bf Bold and Italics:}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+What you type: & What you see:\\
+\hline
+\verb; {\bf Bold stuff} ; & {\bf Bold stuff}. \\
+\hline
+\verb; {\it More stuff} ; & {\it More stuff}. \\
+\hline
+\end{tabular}
+\end{center}
+\end{ex}
+\begin{ex}
+{\bf Font size:}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+What you type: & What you see:\\
+\hline
+\verb; {\huge Some text}. ; & {\huge Some text}. \\
+\hline
+\verb; {\Large Some text}. ; & {\Large Some text}. \\
+\hline
+\verb; {\large Some text}. ; & {\large Some text}. \\
+\hline
+\verb; Some text. ; & Some text. \\
+\hline
+\verb; {\small Some text}. ; & {\small Some text}. \\
+\hline
+\verb; {\footnotesize Some text}. ; & {\footnotesize Some text}. \\
+\hline
+\verb; {\scriptsize Some text}. ; & {\scriptsize Some text}. \\
+\hline
+\end{tabular}
+\end{center}
+\end{ex}
+
+While in text mode, we can also adjust the spacing quite easily. Some common spacing commands:
+\begin{enumerate}
+\item `\verb;\vspace{5cm};' will leave a vertical gap of $5$cm on the page.
+\item `\verb;\noindent;' at the beginning of a paragraph will remove the \emph{indent} found at the start of a paragraph.
+\item '\verb;\newpage;' will begin a \emph{new page}.
+\end{enumerate}
+
+In addition, there are some changes to punctuating in Latex.
+\begin{enumerate}
+\item \emph{Quotation marks} can be written using the \emph{grave accent} and the \emph{apostrophe} symbols \verb; ` ';.
+\item \emph{Double quotation marks} can be written using the above \verb; `` '';
+\item \emph{Dollar signs} can be written using \verb; \$;
+\item \emph{Backslashes} can be written using \verb;$\backslash$;
+\item A series of dots such as $\ldots$ or $\cdots$ can be written using \verb;$\ldots$; and \verb;$\cdots$; respectively.
+\end{enumerate}
+
+
+\begin{ex}
+If you want to write a comment in the code to remind yourself how awesome math is, you can write:
+\begin{verbatim}
+% Mathematics is amazing.
+\end{verbatim}
+It will not show up in the document when you compile.
+\end{ex} 
+
+\section{Math As Part Of A Sentence.}
+
+One of the biggest advantages of Latex is that it handles mathematical writing very well. As you may have noticed at the end of the previous section, some commands are enclosed by \$. The dollar sign is used to enclose commands used in mathematics mode. If you want to include a small snippet of mathematics in your writing, we can enclose it with \$. For example:
+
+\begin{ex}
+{\bf Writing Math:}
+
+\begin{center}
+\verb; We want to find the limit of $f(x)$ as $x$ approaches $3$. ; 
+\end{center}
+will be displayed
+\begin{center}
+We want to find the limit of $f(x)$ as $x$ approaches $3$. 
+\end{center}
+\end{ex}
+
+We can use \$ to enclose variables to distinguish them for simple text. For example, look at the difference between ($a$,a) or ($x$,x) with the first of each pair enclosed in \$. 
+
+{\bf An important note:} Curly brackets $\{\}$ are used as invisible brackets to group text together. 
+
+\begin{ex}
+{\bf Curly Brackets:}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+What you type: & What you see:\\
+\hline
+\verb;x^23 ; & $x^23$. \\
+\hline
+\verb;x^(23) ; & $x^(23)$. \\
+\hline
+\verb;x^{23} ;&$x^{23}$ \\
+\hline
+\verb;x^{(23)} ; & $x^{(23)}$. \\
+\hline
+
+\end{tabular}
+\end{center}
+\end{ex}
+
+
+Some common formatting in math mode include:
+\begin{enumerate}
+\item \emph{Subscripts} are written as \verb;x_i; and displayed as $x_i$.
+\item \emph{Superscripts} are written as \verb;x^2; and displayed as $x^2$.
+\item \emph{Fractions} are written as \verb;\frac{f(x)}{g(x)}; and displayed as $\frac{f(x)}{g(x)}$.
+\item \emph{Curly brackets} are written as \verb;\{ \};.
+\item Greater/Less than or equal to symbols: \verb;\geq; and \verb;\leq; respectively
+\end{enumerate}
+
+ For a list of common mathematics commands, refer to Section~\ref{sec:CMC}
+
+\section{One line of Math, (Equation).}
+We will frequently want to write an equation that might be more complicated. For this case, we will need something known as an \emph{environment}. Think of an environment as defining a space where we can do more specialised tasks. Environments are always called using the following code
+\begin{ex}
+{\bf Environments:}
+
+\begin{verbatim}
+\begin{environment we want}
+     Stuff we want to to
+\end{environment we want}
+\end{verbatim}
+\end{ex}
+
+In our case, we want the \emph{equation} environment. 
+
+\begin{ex}
+{\bf Equation Environment:}
+
+\begin{verbatim}
+\begin{equation}
+	  f(x) = \frac{1}{1+\frac{1}{1+\frac{1}{1+\frac{1}{1+x}}}}
+\end{equation}
+\end{verbatim}
+will be displayed as:
+\begin{equation}
+	  f(x) = \frac{1}{1+\frac{1}{1+\frac{1}{1+\frac{1}{1+x}}}}
+\end{equation}
+\end{ex}
+
+\begin{ex}
+{\bf Important Note:}
+\label{ex:note}
+When using the \emph{equation} environment, or the \emph{align} environment below, we do not need any \$ symbols. If you tried something like
+\begin{verbatim}
+\begin{equation}
+	  $f(x) = \frac{1}{1+\frac{1}{1+\frac{1}{1+\frac{1}{1+x}}}}$
+\end{equation}
+\end{verbatim}
+It won't compile and spit out errors like it was the end of the world.
+\end{ex}
+
+Notice that Latex automatically labels each equation in the document. If you do not want an equation label, use the asterisk symbol when using the equation environment. Ie.
+
+\begin{ex}
+{\bf No Numbering:}
+
+\begin{verbatim}
+\begin{equation*}
+	  f(x) = \frac{1}{1+\frac{1}{1+\frac{1}{1+\frac{1}{1+x}}}}
+\end{equation*}
+\end{verbatim}
+\end{ex}
+
+Everything that we can do in math mode can be done in the equation environment. We can think of the equation environment as a extended version of the \$ enclosure. As as example of why the equation environment is sometime better, suppose we write the previous equation using \$, it would look like $f(x) = \frac{1}{1+\frac{1}{1+\frac{1}{1+\frac{1}{1+x}}}}$, which would be a little strange as part of a paragraph.
+
+As a final comment, sometimes we will want to bracket parts of our equation, if we do it naively, we might right something that looks like:
+\begin{verbatim}
+\begin{equation}
+g(t) = (\frac{t+2}{t-3})(\frac{1}{t})
+\end{equation}
+\end{verbatim}
+which will look a little strange.
+\begin{equation}
+g(t) = (\frac{t+2}{t-3})(\frac{1}{t})
+\end{equation}
+
+We can get around that using \verb;\left; and \verb;\right; with our brackets. Note that each \verb;\left; has to be paired with a \verb;\right;.
+
+\begin{ex}
+{\bf Bracketing:}
+\begin{verbatim}
+\begin{equation}
+g(t) = \left(\frac{t+2}{t-3}\right)\left(\frac{1}{t}\right)
+\end{equation}
+\end{verbatim}
+which will look like:
+\begin{equation}
+g(t) = \left(\frac{t+2}{t-3}\right)\left(\frac{1}{t}\right)
+\end{equation}
+\end{ex}
+ 
+\section{Multiple lines of Math, (Align).}
+In many cases, we want to write a series of equations one after another. We can accomplish this nicely using the \emph{align} environment. Like the equation environment, everything that works in math mode will work in the align environment. Before we start, be aware of Example~\ref{ex:note}.
+
+\begin{ex}
+{\bf Align Environment:}
+\begin{verbatim}
+\begin{align}
+f(x) &= \frac{x^3-2x^2-11x+12}{x^2-5x+4} \\  
+&= \frac{(x-1)(x^2-x-12)}{(x-1)(x-4)} \\
+&= \frac{(x-1)(x+3)(x-4)}{(x-1)(x-4)} \\
+&= x+3
+\end{align}
+\end{verbatim}
+will be displayed as:
+\begin{align}
+f(x) &= \frac{x^3-2x^2-11x+12}{x^2-5x+4} \\  
+&= \frac{(x-1)(x^2-x-12)}{(x-1)(x-4)} \\
+&= \frac{(x-1)(x+3)(x-4)}{(x-1)(x-4)} \\
+&= x+3
+\end{align}
+\end{ex}
+
+{\bf Important note:} the ampersand symbol (\&), is used in align as a ``tab'' and keeps the rows aligned. The double backslash ($\backslash\backslash$) works just like in normal text to denote a new line.
+
+We can get fancy with the align environment by adding a second ampersand symbol to comment on the various lines. The asterisks can also be used to omit the equation numbering.
+\begin{ex}
+{\bf Text in Math Mode:}
+\begin{verbatim}
+\begin{align*}
+f(x) &= \frac{x^3-2x^2-11x+12}{x^2-5x+4} & {}\\  
+&= \frac{(x-1)(x^2-x-12)}{(x-1)(x-4)} & {Factoring}\\
+&= \frac{(x-1)(x+3)(x-4)}{(x-1)(x-4)} & {\rm Factoring} \\
+&= x+3 &{}
+\end{align*}
+\end{verbatim}
+will be displayed as:
+\begin{align*}
+f(x) &= \frac{x^3-2x^2-11x+12}{x^2-5x+4} & {}\\  
+&= \frac{(x-1)(x^2-x-12)}{(x-1)(x-4)} & {Factoring}\\
+&= \frac{(x-1)(x+3)(x-4)}{(x-1)(x-4)} & {\rm Factoring} \\
+&= x+3 &{}
+\end{align*}
+\end{ex}
+
+Notice the difference between the text in the second and third row, the \verb;{\rm }; in a align or equation environment will tell Latex that this is normal text and not math text. Although not necessary, empty curly brackets $\{\}$ can be used as place holders to keep track of the which bits you want empty.
+
+\section{Tables (Tabular).}
+
+If we want to insert a table of some sort into our document, the tabular environment will take care of that. When creating the table, we have to tell Latex how many columns the table has. Each column can be justified \emph{left(l) right(r) or center(c)}. Borders are handled in two different ways. The \emph{vertical borders} are defined when creating the environment using (\verb;|;), \emph{horizontal borders} are added in the environment using the command \verb;\hline;
+
+\begin{ex}
+{\bf Tables:}
+{\small
+\begin{verbatim}
+\begin{tabular}{||l|l|c||r|}
+\hline
+\hline
+Left Justified& Left Justified& Center Justified& Right Justified\\
+Cell & Cell & Cell & Cell\\
+\hline
+$x$ & {}& $\frac{1}{t}$& {}\\
+\hline
+\hline
+\end{tabular}
+\end{verbatim}
+}
+will give us:
+
+\begin{tabular}{||l|l|c||r|}
+\hline
+\hline
+Left Justified& Left Justified& Center Justified& Right Justified\\
+Cell & Cell & Cell & Cell\\
+\hline
+$x$ & {}& $\frac{1}{t}$& {}\\
+\hline
+\hline
+\end{tabular}
+\end{ex}
+
+\section{Lists, Piecewise functions.}
+There is a incredible large number of environments contained in Latex to do various things. Here I will cover just a couple that will probably come up the most:
+\begin{enumerate}
+\item if we want to create a \emph{numbered list} (such as this one), we will need to use 
+\begin{verbatim}
+\begin{enumerate}
+\item The first thing goes here.
+\item The second thing goes here.
+\end{enumerate}
+\end{verbatim}
+\item To get an \emph{unnumbered list} (ie one with bullet points), we simply replace \verb;enumerate; with \verb;itemize;.
+\begin{verbatim}
+\begin{itemize}
+\item This is not numbered.
+\item This won't be numbered either.
+\end{itemize}
+\end{verbatim}
+\item The \verb;cases; environment is useful when we want to insert piecewise functions. See Example~\ref{ex:piece} to see how its used. It contains elements that are similar to the \verb;array; environment.
+\item This one is really included for completeness. The \verb;array; environment is rarely used by itself, but it will be a necessary part for the next example. It is (loosely speaking) similar to the \verb;align; environment with some \verb;tabular; qualities. 
+\end{enumerate}
+
+As a final note on environments, we can embed one environment within another (possibly the same). For example, to write a piecewise function, we can write:
+\begin{ex}
+{\bf Piece-wise Function:}
+\begin{verbatim}
+\begin{equation}
+f(t) = \left\{
+\begin{array}{cl}
+f_1(t) & x < 10\\
+x^4-x +2 & x \geq 10\\
+\frac{5}{t} & {\rm otherwise}
+\end{array}
+\right.
+\end{equation}
+\end{verbatim}
+which will be displayed as:
+\begin{equation}
+f(t) = \left\{
+\begin{array}{cl}
+f_1(t) & x < 10\\
+x^4-x +2 & x \geq 10\\
+\frac{5}{t} & {\rm otherwise}
+\end{array}
+\right.
+\end{equation}
+\end{ex}
+
+\begin{ex}
+\label{ex:piece}
+{\bf Piece-wise Function (again):} An alternative (and possibly easier) way to code up a piecewise function (Thanks Maxim).
+\begin{verbatim}
+\begin{equation}
+f(x) = \begin{cases} 
+2x+c\sin(x) & \mbox{if } x\geq\pi \\
+cx^3-x & \mbox{if } x<\pi 
+\end{cases}
+\end{equation}
+\end{verbatim}
+which will be displayed as:
+\begin{equation}
+f(x) = \begin{cases} 2x+c\sin(x) & \mbox{if } x\geq\pi \\
+cx^3-x & \mbox{if } x<\pi \end{cases}
+\end{equation}
+
+\end{ex}
+
+
+\section{Pictures, Plots, Graphs, etc.}
+
+Inserting pictures and diagrams in Latex is relatively easy if you have registered with any of the above sites. This is because we need the picture file to the in the same folder as the Latex file you are writing.
+
+Suppose you want to include a picture with the name {\it picture.jpg}. First, copy the picture into the same folder as your Latex file. Then copy the following code into your Latex.
+
+\begin{ex}
+{\bf Pictures:}
+\begin{verbatim}
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=1.00\textwidth]{picture.jpg}
+\end{figure}
+\end{verbatim}
+\end{ex}
+
+What the various bits mean:
+\begin{enumerate}
+\item \verb;figure; is the name of the environment.
+\item We can choose to have the picture at the current spot (here, h), top of the page (t), bottom of the page (b) or separate page for pictures (p). Some, or all, of the letters may be present. Latex will process them in order h,t,b then p.
+\item \verb;\centering; will make the picture center justified.
+\item \verb;width=1.00\textwidth; adjusts the width of the picture as a fraction of the width of the text.
+\end{enumerate}
+
+\subsection{Online Graphing Calculators}
+If we have to deal with graphs and plots in Latex, we can always draw them by hand on the final print out or scan them and then insert them as pictures. An alternative is to use an online graphing calculator to do the plots and then import those pictures (either save or as a screen shot). These are a couple of online graphing websites I have used in the past, but I'm sure many others exist
+\begin{enumerate}
+\item \url{https://www.desmos.com/} (Has amazing animations as well)
+\item \url{http://www.meta-calculator.com/online/}
+\item \url{http://fooplot.com/}
+\end{enumerate}
+
+
+\section{Miscellaneous and Other Cool Stuff.}
+There are other advantages of using Latex that might not be directly relevant to what we will be doing or using in our course. But I feel that it would be cool to include it nonetheless.
+\subsection{Style}
+Latex has various media `styles' built into it for articles, books, reports, letters, and slides. All it takes is changing one word in the header. Standard sections such as cover/title pages, table of contents, list of figures, list of tables, appendices are handled automatically. 
+\subsection{Short hands}
+Suppose that you have a question that requires the use of a lot of derivatives. We could write \verb;\frac{d}{dx}; every time, but that would be time consuming and quite silly. We could be smart and define a shorthand in the form of \verb;\newcommand{ddx}{\frac{d}{dx}}; in the pre-amble (the mess at the start of the document). After that, we can simply write \verb;\ddx; in the document to get our derivative. Now suppose we want to get really fancy and want to do second derivatives, or derivatives with different variables. This is also easily accomplished:
+\begin{enumerate}
+\item To get higher order derivatives, put 
+\begin{verbatim}
+\newcommand{ddx}[1]{\frac{d^{#1}}{dx^{#1}}}
+\end{verbatim}
+in the pre-amble and write \verb;\ddx{2}; for the second derivative (and replace $2$ with $3$ etc to get higher order derivatives).
+\item To get derivatives with other variables, put 
+\begin{verbatim}
+\newcommand{dd}[1]{\frac{d}{d #1}}
+\end{verbatim}
+in the pre-amble and write \verb;\dd{t}; for a derivative with respect to $t$.
+\item Combining the above two, put 
+\begin{verbatim}
+\newcommand{dd}[2]{\frac{d^{#2}}{d #1^{#2}}}
+\end{verbatim}
+in the pre-amble and write \verb;\dd{t}{2}; for the second order derivative with respect to $t$.
+\end{enumerate}
+\subsection{Numbering}
+As you may have noticed with the equations of this document, the numbering is done automatically. I simply have to tell Latex what I want numbered. The same goes for the sections of this document. Although not present, the same goes for Tables, Pictures, Theorems, Definitions, References, Bibliography and pretty much anything else you want numbered.
+\subsection{Labelling}
+If there are particular sections or equations are important, it is possible to label them and then link to them from elsewhere within the document. For example, I can link to Section~\ref{sec:CMC} through very little effort. Again, the numbering is taken care of by Latex.
+\subsection{Referencing}
+This is not only true for links within the document. If I have a list of references/bibliography, Latex arranges and numbers the entries into the any style of your choosing (APA, MLA, AMA, Chicago etc). The same goes for URL links as shown at the start of the document. Referencing these entries within the document can also be done quite easily. 
+\subsection{Customisation}
+EVERYTHING in Latex can be customised: font style, size, colour, spacing, margins, blank spaces, hyperlinks, etc. There is a vast range of packages on the internet for everything that you could ever think of changing in Latex. There is no reason to stop at the default settings. {\bf Google is your friend!}
+
+\newpage
+\section{Common Mathematical Commands and Symbols.}
+\label{sec:CMC}
+In this section, I have just put together a list of the more common mathematical notations that we will be using throughout the course. This list is by no mean exhaustive. Most of these commands will require math mode. Ie. \$, or equation, or align.
+\subsection{Symbols and Formatting}
+\begin{center}
+\begin{tabular}{||l||c|c|}
+\hline
+\hline
+What you want: & What you should write: & What you see:\\
+\hline
+\hline
+Integers, Natural numbers & \verb;\mathbb{Z};, \verb;\mathbb{N}; & $\mathbb{Z}$, $\mathbb{N}$ \\
+\hline
+Rational, Real numbers & \verb;\mathbb{Q};, \verb;\mathbb{R}; & $\mathbb{Q}$, $\mathbb{R}$ \\
+\hline
+``is in'' & \verb;\in; & $\in$ \\
+\hline
+Infinity & \verb;\infty; & $\infty$ \\
+\hline
+Greek letters & \verb;\alpha, \beta, \gamma; & $\alpha, \beta, \gamma$ \\
+\hline
+More Greek& \verb;\Delta, \pi; & $\Delta, \pi$ \\
+\hline
+Subscripts,Indices& \verb;x_i; & $x_i$ \\
+\hline
+Superscripts,Powers & \verb;x^k; & $x^k$ \\
+\hline
+Fractions & \verb;\frac{x}{y}; & $\frac{x}{y}$ \\
+\hline
+Not equals & \verb;\neq; & $\neq$ \\
+\hline
+Greater than or equal to & \verb;\geq; & $\geq$ \\
+\hline
+Less than or equal to & \verb;\leq; & $\leq$ \\
+\hline
+Plus/Minus& \verb;\pm; & $\pm$ \\
+\hline
+Binomials & \verb;\binom{n}{k}; & $\binom{n}{b}$ \\
+\hline
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Functions and Calculus}
+\begin{center}
+\begin{tabular}{||l||c|c|}
+\hline
+\hline
+What you want: & What you should write: & What you see:\\
+\hline
+\hline
+A function & \verb;f(x); & $f(x)$ \\
+\hline
+Compositions & \verb;(f \circ g)(x); & $(f \circ g)(x)$ \\
+\hline
+Square roots & \verb;\sqrt{x}; & $\sqrt{x}$\\ 
+\hline
+n-th roots & \verb;\sqrt[n]{x}; & $\sqrt[n]{x}$\\ 
+\hline
+Sine & \verb;\sin(x); & $\sin(x)$ \\
+\hline
+Cosine & \verb;\cos(x); & $\cos(x)$ \\
+\hline
+Tangent & \verb;\tan(x); & $\tan(x)$ \\
+\hline
+Exponents & \verb;\exp(x); & $\exp(x)$ \\
+\hline
+Logs & \verb;\log_a(x); or \verb;\ln(x); & $\log_a(x)$ or $\ln(x)$.\\
+\hline
+Right arrow & \verb;\rightarrow; & $\rightarrow$ \\
+\hline
+Double right arrow & \verb;\Rightarrow; & $\Rightarrow$ \\
+\hline
+Function maps & \verb;\mapsto; & $\mapsto$ \\
+\hline
+Limits & \verb;\lim_{x\rightarrow 5}; & $\displaystyle \lim_{x\rightarrow 5}$ \\
+& \verb;\lim_{x\rightarrow\infty}; & $\displaystyle \lim_{x\rightarrow\infty}$ \\
+\hline
+Derivatives & \verb;\frac{{\rm d}}{{\rm d}x}; & $\frac{{\rm d}}{{\rm d}x}$ \\
+(Higher Orders) & \verb;\frac{{\rm d}^2}{{\rm d}x^2}; & $\frac{{\rm d}^2}{{\rm d}x^2}$ \\
+\hline
+Summation  & \verb;\sum_{i=0}^{n}; & $\displaystyle \sum_{i=0}^{n}$ \\
+\hline
+Integration  & \verb;\int_{-3}^{2}; & $\displaystyle \int_{-3}^{2}$ \\
+\hline
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
+
